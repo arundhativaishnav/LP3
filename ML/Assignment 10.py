@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
 # --- Load the dataset with proper encoding ---
 df = pd.read_csv("sales_data_sample.csv", encoding='latin1')
@@ -26,6 +27,20 @@ for k in K_range:
     kmeans.fit(X_scaled)
     wcss.append(kmeans.inertia_)
 
+#What you’ll see:
+
+# When K = 1 → very high WCSS
+
+# As K increases → WCSS drops quickly
+
+# After a point (the elbow) → WCSS doesn’t drop much anymore
+
+# That bend (elbow) is your optimal_k.
+plt.plot(K_range, wcss, 'bo-')
+plt.xlabel('Number of Clusters (K)')
+plt.ylabel('WCSS')
+plt.title('Elbow Method for Optimal K')
+plt.show()
 
 # --- K-Means Clustering (Choose optimal K, e.g., K=3) ---
 optimal_k = 3
